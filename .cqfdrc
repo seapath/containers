@@ -1,0 +1,6 @@
+[project]
+org='rte'
+name='container'
+
+[build]
+command='check_Dockerfile.sh'
