@@ -10,7 +10,7 @@ RUN apk --no-cache add dnsmasq syslinux
 COPY dnsmasq.conf /etc/dnsmasq.conf
 COPY dhcp_extra_config/* /etc/dnsmasq.d/
 RUN echo "dhcp-range=${DHCP_RANGE_BEGIN},${DHCP_RANGE_END},48h" \
-    > /etc/dnsmasq.more.conf
-RUN echo "interface=${DHCP_BIND_INTERFACE}" >> /etc/dnsmasq.more.conf
+    > /etc/dnsmasq.more.conf && \
+    echo "interface=${DHCP_BIND_INTERFACE}" >> /etc/dnsmasq.more.conf
 VOLUME /tftpboot/images
-CMD /usr/sbin/dnsmasq --keep-in-foreground --log-facility=-
+CMD ["/usr/sbin/dnsmasq", "--keep-in-foreground", "--log-facility=-"]
