@@ -1,0 +1,32 @@
+// Copyright (C) 2021, RTE (http://www.rte-france.com)
+// SPDX-License-Identifier: CC-BY-4.0
+
+= How to test the PXE docker image
+
+The PXE docker image is intended to be launched by SEAPATH Ansible playbooks. It is however possible to launch it in standalone mode to test.
+To do so, follow these steps:
+
+* generate with Yocto the *seapath-flash-pxe* image
+* create in the current folder the *images* folder
+* copy the files *bzImage* and *seapath-flash-pxe-votp.cpio.gz* to the *images* folder
+* build the PXE image with docker: `docker build --tag pxe .`
+* connect the PC to the PXE network
+* run the PXE container (adapte the configuration to your setup):
+```sh
+  docker run \
+            --rm \
+            -it \
+            -v $(pwd)/images:/images \
+            --cap-add NET_ADMIN \
+            --cap-add NET_RAW \
+            --net host \
+            -e DHCP_RANGE_BEGIN=192.168.111.50 \
+            -e DHCP_RANGE_END=192.168.111.100 \
+            -e BIND_INTERFACE=eth0 \
+            -e SERVER_ADDRESS=192.168.111.1 \
+            -e DHCP_NO_IGNORE=yes \
+            -e PXE=bios \
+            pxe
+```
+* start the machine you want to boot
+* at the end you should have access to a login prompt

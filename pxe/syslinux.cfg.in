@@ -3,8 +3,9 @@
 # SPDX-License-Identifier: Apache-2.0
 DEFAULT menu.c32
 TIMEOUT 1
-LABEL votp
- MENU LABEL ^VOTP FLASH
+SERIAL 0 115200
+LABEL SEAPATH
+ MENU LABEL ^SEAPATH FLASH PXE
  KERNEL images/bzImage
  INITRD images/seapath-flash-pxe-votp.cpio.gz
  APPEND ip=dhcp console=ttyS0,115200 console=tty0
