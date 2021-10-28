@@ -1,0 +1,60 @@
+// Copyright (C) 2020, RTE (http://www.rte-france.com)
+// SPDX-License-Identifier: CC-BY-4.0
+
+= Containers
+
+This repository contains containers which can used by Jenkins and Ansible to
+configure and manage SEAPATH.
+
+== pxe
+
+This container can be used to easily deploy a DHCP server with PXE support. It
+is used by SEAPATH as a PXE server for flashing the physical machines' disks and
+as a DHCP server to give an IP configuration to VMs.
+
+The server configuration is done each time the container is launched according to the following environment variables.
+
+|===
+|Environment variables |Mandatory |Description
+
+|PXE
+|No
+|Define this variable to enable PXE support. Set to _uefi_ to enable UEFI
+compatibility
+
+|SERVER_ADDRESS
+|Only if PXE is defined
+|The PXE IP address assigned to the _BIND_INTERFACE_ interface
+
+|DHCP_RANGE_BEGIN
+|Yes
+|First IP address of the DHCP IP address range reservation
+
+|DHCP_RANGE_END
+|Yes
+|Last IP address of the DHCP IP address range reservation
+
+|BIND_INTERFACE
+|Yes
+|The network interface to bind with the DHCP server and PXE server
+
+|DHCP_NO_IGNORE
+|No
+|By default, the DHCP server does not reply from an unknown machine. So to
+_yes_ to always reply
+
+To be able to give the right IP to the right machine you need to provide a
+specific configuration file which makes the link between MAC address and IP
+address. This file must have the _.conf_ extension and must be mounted in the
+container with the `-v` option in _/etc/dnsmasq.d/_.
+
+For instance:
+
+```
+# Hypervisor 1
+dhcp-host=00:0b:ab:ce:d6:27,192.168.219.4
+# Hypervisor 2
+dhcp-host=1c:fd:08:70:84:c4,192.168.219.5
+# Observer
+dhcp-host=00:01:2e:4d:6d:dd,192.168.219.6
+```
