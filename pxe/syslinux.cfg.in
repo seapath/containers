@@ -7,5 +7,5 @@ SERIAL 0 115200
 LABEL SEAPATH
  MENU LABEL ^SEAPATH FLASH PXE
  KERNEL images/bzImage
- INITRD images/seapath-flash-pxe-votp.cpio.gz
+ INITRD images/seapath-flash-pxe-votp-flash.cpio.gz
  APPEND ip=dhcp console=ttyS0,115200 console=tty0

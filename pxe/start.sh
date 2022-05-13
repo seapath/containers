@@ -33,4 +33,5 @@ interface=${BIND_INTERFACE}
 log-dhcp
 EOF
 
-exec /usr/sbin/dnsmasq --keep-in-foreground --log-facility=-
+nginx &
+/usr/sbin/dnsmasq --keep-in-foreground --log-facility=-
