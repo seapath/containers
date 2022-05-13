@@ -5,9 +5,8 @@ TIMEOUT 5
 SERIAL 0 115200
 LABEL SEAPATH
  MENU LABEL ^SEAPATH FLASH PXE
- KERNEL images/bzImage
- INITRD images/seapath-flash-pxe-votp.cpio.gz
- APPEND ip=dhcp console=ttyS0,115200 console=tty0
+ KERNEL http://boot-server/bzImage
+ APPEND ip=dhcp console=ttyS0,115200 console=tty0 initrd=http://boot-server/seapath-flash-pxe-votp-flash.cpio.gz
 LABEL LockDown
  MENU LABEL ^LOCKDOWN EFI
  KERNEL images/LockDown.efi
