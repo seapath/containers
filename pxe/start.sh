@@ -51,5 +51,8 @@ interface=${BIND_INTERFACE}
 log-dhcp
 EOF
 
+cp /etc/nginx/nginx.conf.in /etc/nginx/nginx.conf
+sed "s/@SERVER_ADDRESS@/${SERVER_ADDRESS}/" -i /etc/nginx/nginx.conf
+
 nginx &
 /usr/sbin/dnsmasq --keep-in-foreground --log-facility=-

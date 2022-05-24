@@ -28,8 +28,7 @@ http {
 	access_log /dev/stdout main;
 
 	server {
-		listen       80;
-		listen       [::]:80;
+		listen       @SERVER_ADDRESS@:80;
 		server_name  _;
 		root         /images;
         gzip off;

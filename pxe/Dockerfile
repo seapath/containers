@@ -11,7 +11,7 @@ RUN apk --no-cache add dnsmasq syslinux nginx && \
         /tftpboot/syslinux/efi64/pxelinux.cfg && \
     ln -sf /images /tftpboot/syslinux/images && \
     ln -sf /images /tftpboot/syslinux/efi64/images
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf.in /etc/nginx/nginx.conf.in
 COPY syslinux.cfg.in /opt/syslinux.cfg.in
 COPY syslinux_efi.cfg.in /opt/syslinux_efi.cfg.in
 COPY dnsmasq.conf /etc/dnsmasq.conf
